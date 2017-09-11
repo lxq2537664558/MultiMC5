@@ -730,8 +730,10 @@ void MinecraftProfile::upgradeDeprecatedFiles_internal()
 	}
 }
 
-void MinecraftProfile::loadDefaultBuiltinPatches_internal()
+void MinecraftProfile::load_internal()
 {
+	clearPatches();
+	upgradeDeprecatedFiles_internal();
 	auto addBuiltinPatch = [&](const QString &uid, const QString intendedVersion, int order)
 	{
 		auto jsonFilePath = FS::PathCombine(m_instance->instanceRoot(), "patches" , uid + ".json");
@@ -759,10 +761,7 @@ void MinecraftProfile::loadDefaultBuiltinPatches_internal()
 	};
 	addBuiltinPatch("net.minecraft", m_instance->getComponentVersion("net.minecraft"), -2);
 	addBuiltinPatch("org.lwjgl", m_instance->getComponentVersion("org.lwjgl"), -1);
-}
 
-void MinecraftProfile::loadUserPatches_internal()
-{
 	// first, collect all patches (that are not builtins of OneSix) and load them
 	QMap<QString, ProfilePatchPtr> loadedPatches;
 	QDir patchesDir(FS::PathCombine(m_instance->instanceRoot(),"patches"));
@@ -848,15 +847,6 @@ void MinecraftProfile::loadUserPatches_internal()
 		}
 	}
 	// TODO: save the order here?
-}
-
-
-void MinecraftProfile::load_internal()
-{
-	clearPatches();
-	upgradeDeprecatedFiles_internal();
-	loadDefaultBuiltinPatches_internal();
-	loadUserPatches_internal();
 }
 
 bool MinecraftProfile::saveOrder_internal(ProfileUtils::PatchOrder order) const

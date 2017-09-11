@@ -144,8 +144,6 @@ private:
 	bool removePatch_internal(ProfilePatchPtr patch);
 	bool customizePatch_internal(ProfilePatchPtr patch);
 	bool revertPatch_internal(ProfilePatchPtr patch);
-	void loadDefaultBuiltinPatches_internal();
-	void loadUserPatches_internal();
 	void upgradeDeprecatedFiles_internal();
 
 private: /* data */
