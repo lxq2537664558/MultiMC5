@@ -19,11 +19,6 @@ struct MojangAssetIndexInfo;
 typedef std::shared_ptr<VersionFile> VersionFilePtr;
 class VersionFile : public ProblemContainer
 {
-	friend class MojangVersionFormat;
-	friend class OneSixVersionFormat;
-public: /* methods */
-	void applyTo(MinecraftProfile *profile);
-
 public: /* data */
 	/// MultiMC: order hint for this version file if no explicit order is set
 	int order = 0;
